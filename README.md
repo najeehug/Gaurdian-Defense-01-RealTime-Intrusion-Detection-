@@ -7,8 +7,6 @@ Arduino-based real-time intrusion detection and response system using PIR motion
 This project implements an **Arduino-based real-time intrusion detection and response system** that can sense motion, door/window openings, and user input events.  
 It was developed as part of the **CSE 321 – Real-Time & Embedded Systems** course.
 
----
-
 ### 🎯 Features
 - **PIR Motion Sensor (HC-SR501)** – detects movement in monitored area  
 - **Reed Switch** – detects door/window open events  
@@ -16,8 +14,6 @@ It was developed as part of the **CSE 321 – Real-Time & Embedded Systems** cou
 - **LED Indicators** – red = armed/alarm, green = safe  
 - **Buzzer** – audible alarm on intrusion  
 - **Microphone Module (optional)** – future TinyML “disarm by voice” upgrade  
-
----
 
 ### 🧰 Hardware Components
 | Component | Function | Arduino Pin |
@@ -30,16 +26,7 @@ It was developed as part of the **CSE 321 – Real-Time & Embedded Systems** cou
 | Push Button | Arm/Disarm control | D8 |
 | Microphone (A0) | Optional sound trigger | A0 |
 
----
-
 ### ⚙️ Software Overview
 - Written in **C++ / Arduino IDE**
 - Uses **non-blocking finite-state machine** (IDLE → ARMED → ALARM)
 - Fully tested through stand-alone unit tests under `/code/tests`
-
----
-
-### 📖 Setup Instructions
-1. Clone the repository  
-   ```bash
-   git clone https://github.com/<your-username>/CSE321-RealTime-Intrusion-Detection.git
