@@ -13,7 +13,7 @@ It was developed as part of the **CSE 321 – Real-Time & Embedded Systems** cou
 - **Push Button** – arms/disarms the system  
 - **LED Indicators** – red = armed/alarm, green = safe  
 - **Buzzer** – audible alarm on intrusion  
-- **Microphone Module (optional)** – future TinyML “disarm by voice” upgrade  
+- **Microphone Module – future TinyML “arm and disarm by voice” upgrade  
 
 ### 🧰 Hardware Components
 | Component | Function | Arduino Pin |
