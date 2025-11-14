@@ -27,6 +27,6 @@ It was developed as part of the **CSE 321 – Real-Time & Embedded Systems** cou
 | Microphone (A0) | Optional sound trigger | A0 |
 
 ### ⚙️ Software Overview
-- Written in **C++ / Arduino IDE**
+- Written in **C / Arduino IDE**
 - Uses **non-blocking finite-state machine** (IDLE → ARMED → ALARM)
 - Fully tested through stand-alone unit tests under `/code/tests`
