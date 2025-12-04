@@ -1,219 +1,171 @@
-CSE321 Real-Time Intrusion Detection System – User Guide
+# **CSE321 Real-Time Intrusion Detection System**
 
-📘 Overview
+A real-time Arduino-based intrusion detection and response system using PIR motion sensing, reed-switch door monitoring, microphone noise detection, OLED feedback, LED indicators, and buzzer alarms.
+Developed for **CSE 321 – Real-Time & Embedded Systems**.
 
-This Arduino-based real-time intrusion detection system monitors motion, door openings, and loud noise, and responds with LED indicators, OLED alerts, and a buzzer alarm.
-The system is implemented using a cyclic executive and a finite state machine with three modes:
+---
 
-DISARMED
+## **📘 Overview**
 
-ARMED
+This system monitors a protected area for **motion**, **door openings**, and **loud noise**, then triggers an alarm with visual and audible feedback.
+A **finite-state machine (DISARMED → ARMED → ALARM)** and a **cyclic executive** are used to guarantee predictable real-time behavior.
 
-ALARM
+The system is displayed on an **SSD1306 OLED** which shows the current mode and the cause of any alarm trigger.
 
-This guide explains how to operate the system once built.
+---
 
-🛠️ Hardware Input/Output Summary
-| Component                  | Purpose                                    | Interaction               |
-| -------------------------- | ------------------------------------------ | ------------------------- |
-| **Arm Button (D9)**        | Arms the system                            | Press once                |
-| **Disarm Button (D8)**     | Disarms the system / hold to silence alarm | Press or hold 3 seconds   |
-| **PIR Motion Sensor (D2)** | Detects movement                           | Triggers alarm when armed |
-| **Reed Switch (D3)**       | Detects door/window opening                | Triggers alarm when armed |
-| **Microphone (A0)**        | Detects loud noise                         | Triggers alarm when armed |
-| **Red LED (D6)**           | Shows ARMED/ALARM                          | ON when armed or alarming |
-| **Green LED (D7)**         | Shows DISARMED                             | ON when system is safe    |
-| **Buzzer (D5)**            | Audible alarm                              | Rapid beeping in ALARM    |
-| **OLED Display**           | Shows system state & alarm cause           | Auto-updates              |
+## **🛠 Hardware Components**
 
+| Component                  | Purpose                          | Arduino Pin |
+| -------------------------- | -------------------------------- | ----------- |
+| PIR Motion Sensor          | Detects human movement           | D2          |
+| Reed Switch                | Detects door/window opening      | D3          |
+| Microphone (MAX4466)       | Detects loud noises              | A0          |
+| Buzzer                     | Audible alarm output             | D5          |
+| Red LED                    | ARMED/ALARM indicator            | D6          |
+| Green LED                  | DISARMED indicator               | D7          |
+| Arm Button                 | Arms the system                  | D9          |
+| Disarm Button              | Disarms the system               | D8          |
+| OLED Display (SSD1306 I2C) | Shows system state & alarm cause | SDA/SCL     |
 
+---
 
-🚀 System Startup
+## **🔧 System States**
 
-When powered on:
+### **1. DISARMED**
 
-The OLED shows “SYSTEM STARTING”
+* System is idle
+* Green LED ON
+* No alarms will trigger
+* Press **ARM** to activate system
 
-The microphone automatically performs calibration
+### **2. ARMED**
 
-System enters DISARMED mode
+* Red LED ON
+* System actively monitors all sensors
+* Alarm triggers if any of the following occur:
 
-Display shows:
+  * **Door opens**
+  * **Motion detected**
+  * **Loud noise**
 
-DISARMED
-IDLE
+### **3. ALARM**
 
+* Red LED flashes
+* Buzzer beeps in rapid intervals
+* OLED displays the cause:
 
-You are now ready to use the system.
+  * **DOOR**
+  * **MOTION**
+  * **NOISE**
 
+To stop the alarm, **hold the DISARM button for 3 seconds**.
 
+---
 
-🔒 How to Arm the System
+## **🚀 How to Use the System**
 
-To arm the system:
+### **➡️ Power On**
 
-➤ Press the ARM button (Pin 9)
+* OLED displays **SYSTEM STARTING**
+* Microphone calibrates automatically
+* System enters **DISARMED** mode
 
-The system will:
+---
 
-Turn GREEN LED OFF
+### **➡️ Arming the System**
 
-Turn RED LED ON
+Press the **ARM button (D9)**.
 
-Display:
+OLED shows:
 
+```
 ARMED
 ACTIVE
+```
 
+Red LED turns ON.
 
-While armed, the system monitors:
+---
 
-Door opening
+### **➡️ What Triggers the Alarm?**
 
-Motion
+| Event               | Trigger Mechanism | Displayed Cause |
+| ------------------- | ----------------- | --------------- |
+| Door opens          | Reed switch LOW   | DOOR            |
+| Motion detected     | PIR HIGH          | MOTION          |
+| Loud noise detected | Microphone spike  | NOISE           |
 
-Loud noise
+---
 
+### **➡️ Disarming the System (from ARMED)**
 
+Press **DISARM (D8)** once.
 
-🚨 What Triggers the Alarm?
+OLED returns to:
 
-When armed, the system enters ALARM mode if any of the following occurs:
-
-Trigger	Cause on OLED
-Door opens (reed sensor LOW)	“DOOR”
-Motion detected (PIR HIGH)	“MOTION”
-Loud noise detected	“NOISE”
-
-The alarm response includes:
-
-Flashing red LED
-
-Buzzer siren pattern
-
-OLED displays:
-
-ALARM!
-<CAUSE>
-
-
-
-
-🧯 How to Disarm the System
-
-You can disarm in two ways, depending on the current state:
-
-1. Disarm from ARMED mode
-
-Press the Disarm button (Pin 8) once.
-
-System returns to:
-
+```
 DISARMED
 IDLE
+```
 
+Green LED turns ON.
 
-Green LED turns back on.
+---
 
-2. Disarm from ALARM mode
+### **➡️ Stopping an Alarm**
 
-To prevent accidental shutdown, the user must:
+To avoid accidental alarm cancellation:
 
-➡ Hold the DISARM button for 3 seconds
+**Hold the DISARM button for 3 seconds.**
 
-The OLED shows:
+OLED shows:
 
+```
 HOLD 3S
 TO DISARM
-
+```
 
 After 3 seconds:
 
-Alarm stops
+* Alarm stops
+* LEDs reset
+* System returns to DISARMED
 
-LEDs reset
+---
 
-State becomes DISARMED
-
-Cause resets to “None”
-
-
-
-
-🎛️ State Machine Summary
-DISARMED
-
-Green LED ON
-
-Sensors active but alarms disabled
-
-Press ARM → enters ARMED
-
-ARMED
-
-Red LED ON
-
-Any sensor activity → ALARM
-
-Press DISARM → returns to DISARMED
-
-ALARM
-
-Siren + red LED flashing
-
-OLED shows alarm cause
-
-Hold DISARM 3 seconds → resets system
-
-
-
-
-📟 OLED Display Behavior
+## **📟 OLED Display Behavior**
 
 The display updates only when:
 
-State changes
+* The system state changes
+* The alarm cause changes
 
-Alarm cause changes
+This prevents flicker and reduces I2C overhead during real-time execution.
 
-This reduces flicker and follows the real-time cyclic executive design.
+---
 
-📡 Microphone Calibration
+## **🎤 Microphone Calibration**
 
-At startup:
+On startup, the system:
 
-500 readings are averaged
+* Reads 500 microphone samples
+* Computes the quiet baseline
+* Uses thresholds to detect loud events
 
-Baseline noise level is stored
+This ensures **false alarms are minimized**.
 
-Any sound +250 above baseline OR >900 absolute triggers noise alarm
+---
 
-This prevents false alarms by adapting to the room environment.
+## **⏱ Real-Time Cyclic Executive**
 
+The system runs on a **4-frame, 10 ms per frame** cyclic executive:
 
+| Frame # | Tasks Executed                                            |
+| ------- | --------------------------------------------------------- |
+| 0       | Read sensors, read mic, update alarm pattern              |
+| 1       | Read sensors, read mic, update alarm pattern              |
+| 2       | Read sensors, read mic, update alarm pattern              |
+| 3       | Read sensors, read mic, update alarm pattern, update OLED |
 
-
-⏱️ Real-Time Cyclic Executive
-
-The system runs on a 4-frame cyclic executive (10ms/frame):
-
-| Frame | Tasks                                    |
-| ----- | ---------------------------------------- |
-| 0     | Read sensors + mic + alarm pattern       |
-| 1     | Read sensors + mic + alarm pattern       |
-| 2     | Read sensors + mic + alarm pattern       |
-| 3     | Read sensors + mic + alarm + OLED update |
-
-This ensures predictable, periodic sensor sampling and display updates.
-
-✔️ How to Use the System (Quick Guide)
-
-Power on → System calibrates & enters DISARMED
-
-Press ARM → System is now active
-
-Any intrusion → Alarm triggers
-
-Hold DISARM for 3s → Alarm stops
-
-Press DISARM (when armed) → Return to safe state
+This guarantees predictable periodic behavior and avoids blocking delays.
