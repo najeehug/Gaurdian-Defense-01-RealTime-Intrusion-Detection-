@@ -3,7 +3,6 @@
 A real-time Arduino-based intrusion detection and response system using PIR motion sensing, reed-switch door monitoring, microphone noise detection, OLED feedback, LED indicators, and buzzer alarms.
 Developed for **CSE 321 – Real-Time & Embedded Systems**.
 
----
 
 ## **📘 Overview**
 
@@ -12,7 +11,6 @@ A **finite-state machine (DISARMED → ARMED → ALARM)** and a **cyclic executi
 
 The system is displayed on an **SSD1306 OLED** which shows the current mode and the cause of any alarm trigger.
 
----
 
 ## **🛠 Hardware Components**
 
@@ -28,7 +26,6 @@ The system is displayed on an **SSD1306 OLED** which shows the current mode and 
 | Disarm Button              | Disarms the system               | D8          |
 | OLED Display (SSD1306 I2C) | Shows system state & alarm cause | SDA/SCL     |
 
----
 
 ## **🔧 System States**
 
@@ -61,7 +58,6 @@ The system is displayed on an **SSD1306 OLED** which shows the current mode and 
 
 To stop the alarm, **hold the DISARM button for 3 seconds**.
 
----
 
 ## **🚀 How to Use the System**
 
@@ -71,7 +67,6 @@ To stop the alarm, **hold the DISARM button for 3 seconds**.
 * Microphone calibrates automatically
 * System enters **DISARMED** mode
 
----
 
 ### **➡️ Arming the System**
 
@@ -86,7 +81,6 @@ ACTIVE
 
 Red LED turns ON.
 
----
 
 ### **➡️ What Triggers the Alarm?**
 
@@ -96,7 +90,6 @@ Red LED turns ON.
 | Motion detected     | PIR HIGH          | MOTION          |
 | Loud noise detected | Microphone spike  | NOISE           |
 
----
 
 ### **➡️ Disarming the System (from ARMED)**
 
@@ -111,7 +104,6 @@ IDLE
 
 Green LED turns ON.
 
----
 
 ### **➡️ Stopping an Alarm**
 
@@ -132,7 +124,6 @@ After 3 seconds:
 * LEDs reset
 * System returns to DISARMED
 
----
 
 ## **📟 OLED Display Behavior**
 
@@ -143,7 +134,6 @@ The display updates only when:
 
 This prevents flicker and reduces I2C overhead during real-time execution.
 
----
 
 ## **🎤 Microphone Calibration**
 
@@ -155,7 +145,6 @@ On startup, the system:
 
 This ensures **false alarms are minimized**.
 
----
 
 ## **⏱ Real-Time Cyclic Executive**
 
