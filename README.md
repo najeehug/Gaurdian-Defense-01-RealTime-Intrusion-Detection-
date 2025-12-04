@@ -1,4 +1,5 @@
 CSE321 Real-Time Intrusion Detection System – User Guide
+
 📘 Overview
 
 This Arduino-based real-time intrusion detection system monitors motion, door openings, and loud noise, and responds with LED indicators, OLED alerts, and a buzzer alarm.
