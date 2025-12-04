@@ -27,6 +27,7 @@ This guide explains how to operate the system once built.
 | **OLED Display**           | Shows system state & alarm cause           | Auto-updates              |
 
 
+
 🚀 System Startup
 
 When powered on:
@@ -44,6 +45,8 @@ IDLE
 
 
 You are now ready to use the system.
+
+
 
 🔒 How to Arm the System
 
@@ -71,6 +74,8 @@ Motion
 
 Loud noise
 
+
+
 🚨 What Triggers the Alarm?
 
 When armed, the system enters ALARM mode if any of the following occurs:
@@ -90,6 +95,9 @@ OLED displays:
 
 ALARM!
 <CAUSE>
+
+
+
 
 🧯 How to Disarm the System
 
@@ -129,6 +137,9 @@ State becomes DISARMED
 
 Cause resets to “None”
 
+
+
+
 🎛️ State Machine Summary
 DISARMED
 
@@ -154,6 +165,9 @@ OLED shows alarm cause
 
 Hold DISARM 3 seconds → resets system
 
+
+
+
 📟 OLED Display Behavior
 
 The display updates only when:
@@ -175,6 +189,9 @@ Baseline noise level is stored
 Any sound +250 above baseline OR >900 absolute triggers noise alarm
 
 This prevents false alarms by adapting to the room environment.
+
+
+
 
 ⏱️ Real-Time Cyclic Executive
 
