@@ -1,12 +1,12 @@
 # **CSE321 Real-Time Intrusion Detection System**
 
-A real-time Arduino-based intrusion detection and response system using PIR motion sensing, reed-switch door monitoring, microphone noise detection, OLED feedback, LED indicators, and buzzer alarms.
+A real-time Arduino-based intrusion detection and response system using PIR motion sensing, reed-switch door monitoring, microphone noise detection, OLED feedback, LED indicators, and buzzer alarm.
 Developed for CSE 321 – Real-Time & Embedded Systems.
 
 
 ## **📘 Overview**
 
-This system monitors a protected area for **motion**, **door openings**, and **loud noise**, then triggers an alarm with visual and audible feedback.
+This system monitors a protected area for **motion**, **door opening**, and **loud noise**, then triggers an alarm with visual and audible feedback.
 A **finite-state machine (DISARMED → ARMED → ALARM)** and a **cyclic executive** are used to guarantee predictable real-time behavior.
 
 The system is displayed on an **SSD1306 OLED** which shows the current mode and the cause of any alarm trigger.
