@@ -8,25 +8,40 @@ This project implements an **Arduino-based real-time intrusion detection and res
 It was developed as part of the **CSE 321 – Real-Time & Embedded Systems** course.
 
 ### 🎯 Features
-- **PIR Motion Sensor (HC-SR501)** – detects movement in monitored area  
-- **Reed Switch** – detects door/window open events  
-- **Push Button** – arms/disarms the system  
-- **LED Indicators** – red = armed/alarm, green = safe  
-- **Buzzer** – audible alarm on intrusion  
-- **Microphone Module (optional)** – future TinyML “disarm by voice” upgrade  
+PIR Motion Sensor (HC-SR501) – Detects movement
+
+Reed Switch – Detects door/window openings
+
+Push Button – Arms/disarms the system
+
+LED Indicators – Red = armed/alarm, Green = safe
+
+Buzzer – Audible alarm activation
+
+OLED Display – Shows system state and alarm cause
+
+Microphone Module – Noise-based intrusion detection
 
 ### 🧰 Hardware Components
 | Component | Function | Arduino Pin |
-|------------|-----------|-------------|
-| PIR Motion Sensor | Motion input | D2 |
-| Reed Switch | Door/window input | D3 |
-| Buzzer | Audible alert | D5 |
-| Red LED | Alarm indicator | D6 |
-| Green LED | Safe indicator | D7 |
-| Push Button | Arm/Disarm control | D8 |
-| Microphone (A0) | Optional sound trigger | A0 |
+| Component              | Function              | Arduino Pin   |
+| ---------------------- | --------------------- | ------------- |
+| PIR Motion Sensor      | Motion detection      | D2            |
+| Reed Switch            | Door/window detection | D3            |
+| Buzzer                 | Audible alarm         | D5            |
+| Red LED                | Armed/Alarm indicator | D6            |
+| Green LED              | Safe indicator        | D7            |
+| Disarm Button          | Disarm control        | D8            |
+| Arm Button             | Arm control           | D9            |
+| OLED Display (SSD1306) | Status output         | I2C (SDA/SCL) |
+| Microphone (MAX4466)   | Noise detection       | A0            |
+
 
 ### ⚙️ Software Overview
+Uses a non-blocking Finite State Machine (FSM)
+(DISARMED → ARMED → ALARM)
+Includes debouncing, sensor calibration, and interrupt-safe logic
+Designed using principles from real-time scheduling, synchronization, and embedded system timing constraints
 - Written in **C / Arduino IDE**
 - Uses **non-blocking finite-state machine** (IDLE → ARMED → ALARM)
 - Fully tested through stand-alone unit tests under `/code/tests`
