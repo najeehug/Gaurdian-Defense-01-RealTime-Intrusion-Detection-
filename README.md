@@ -11,6 +11,11 @@ A **finite-state machine (DISARMED → ARMED → ALARM)** and a **cyclic executi
 
 The system is displayed on an **SSD1306 OLED** which shows the current mode and the cause of any alarm trigger.
 
+## **🎥 Demo Video**
+
+Watch the project demonstration here:
+
+https://drive.google.com/file/d/1ijcPxoqEOGWlJE4MHxZumWg2BSBHCJzr/view?usp=sharing
 
 ## **🛠 Hardware Components**
 
